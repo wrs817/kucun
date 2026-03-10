@@ -61,7 +61,6 @@ const goodsIn = goodsInAll.filter(
   (g) => g.created_at >= monthStart && g.created_at < monthEnd,
 );
 
-const totalProducts = products.length;
 const lowStock = products.filter((p) => p.quantity <= 5);
 const totalSalesIncome = salesAll.reduce(
   (sum, s) => sum + s.sell_price * s.quantity,
@@ -89,11 +88,7 @@ const monthGoodsInReward = goodsIn.reduce(
 app.innerHTML = `
   <h1 class="text-2xl font-bold text-gray-900 mb-6">首页</h1>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-    <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-      <p class="text-sm text-gray-500">产品总数</p>
-      <p class="text-3xl font-bold text-gray-900 mt-1">${totalProducts}</p>
-    </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
     <div class="bg-white rounded-xl shadow-sm p-5 border ${lowStock.length > 0 ? "border-red-200 bg-red-50" : "border-gray-100"}">
       <p class="text-sm ${lowStock.length > 0 ? "text-red-500" : "text-gray-500"}">库存预警（≤ 5）</p>
       <div class="flex items-baseline gap-3 mt-1">
