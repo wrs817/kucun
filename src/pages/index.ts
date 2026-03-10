@@ -105,7 +105,7 @@ app.innerHTML = `
       <p class="text-3xl font-bold text-gray-900 mt-1">¥${totalGoodsInSpend.toFixed(2)}</p>
     </div>
     <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-      <p class="text-sm text-gray-500">毛利润</p>
+      <p class="text-sm text-gray-500">历史收支</p>
       <p class="text-3xl font-bold ${totalSalesIncome - totalGoodsInSpend >= 0 ? "text-green-600" : "text-red-600"} mt-1">¥${(totalSalesIncome - totalGoodsInSpend).toFixed(2)}</p>
     </div>
   </div>
@@ -130,9 +130,9 @@ app.innerHTML = `
                 ${sales
                   .map(
                     (s) => `<tr class="border-b last:border-0">
-                  <td class="py-2">${s.products?.name ?? "—"}</td>
-                  <td class="py-2">${s.quantity}</td>
-                  <td class="py-2 text-gray-400">${new Date(s.sale_date).toLocaleDateString("zh-CN")}</td>
+                  <td class="py-2" style="width:5em"><div style="width:5em;word-break:break-all">${s.products?.name ?? "—"}</div></td>
+                  <td class="py-2 text-center">${s.quantity}</td>
+                  <td class="py-2 text-gray-400">${new Date(s.sale_date).toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" })}</td>
                   <td class="py-2 text-right text-gray-700">¥${(s.sell_price * s.quantity).toFixed(2)}</td>
                 </tr>`,
                   )
@@ -166,9 +166,9 @@ app.innerHTML = `
                   .map((g) => {
                     const prod = g.products;
                     return `<tr class="border-b last:border-0">
-                  <td class="py-2">${prod?.name ?? "—"}</td>
-                  <td class="py-2">${g.quantity}</td>
-                  <td class="py-2 text-gray-400">${new Date(g.created_at).toLocaleDateString("zh-CN")}</td>
+                  <td class="py-2" style="width:5em"><div style="width:5em;word-break:break-all">${prod?.name ?? "—"}</div></td>
+                  <td class="py-2 text-center">${g.quantity}</td>
+                  <td class="py-2 text-gray-400">${new Date(g.created_at).toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" })}</td>
                   <td class="py-2 text-right text-gray-700">¥${(g.purchase_price * g.quantity).toFixed(2)}</td>
                   <td class="py-2 text-right text-indigo-600">${((prod?.reward_multiplier ?? 0) * g.purchase_price * g.quantity).toFixed(1)}</td>
                 </tr>`;
