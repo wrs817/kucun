@@ -1,9 +1,13 @@
+export const CATEGORIES = ['个人护理', '化妆品', '保健品'] as const
+
+export type Category = typeof CATEGORIES[number]
+
 export interface Product {
   id: string
   user_id: string
   name: string
   reward_multiplier: number
-  category: string
+  category: Category
   quantity: number
   created_at: string
 }

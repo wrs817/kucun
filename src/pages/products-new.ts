@@ -3,6 +3,7 @@ import { requireAuth, getUser } from '../auth'
 import { renderNavbar } from '../components/navbar'
 import { supabase } from '../lib/supabase'
 import { url, navigate } from '../lib/navigate'
+import { CATEGORIES } from '../types'
 
 await requireAuth()
 renderNavbar(document.getElementById('navbar')!, '产品')
@@ -25,8 +26,10 @@ app.innerHTML = `
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">分类</label>
-        <input id="category" type="text" placeholder="如：电子产品"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <select id="category"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+          ${CATEGORIES.map((c) => `<option value="${c}">${c}</option>`).join('')}
+        </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">积分倍率</label>
@@ -56,7 +59,7 @@ form.addEventListener('submit', async (e) => {
   const { error } = await supabase.from('products').insert({
     user_id: user.id,
     name: (document.getElementById('name') as HTMLInputElement).value.trim(),
-    category: (document.getElementById('category') as HTMLInputElement).value.trim(),
+    category: (document.getElementById('category') as HTMLSelectElement).value,
     reward_multiplier: parseFloat((document.getElementById('reward_multiplier') as HTMLInputElement).value),
     quantity: 0,
   })

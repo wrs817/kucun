@@ -3,6 +3,7 @@ import { requireAuth } from '../auth'
 import { renderNavbar } from '../components/navbar'
 import { supabase } from '../lib/supabase'
 import type { Product } from '../types'
+import { CATEGORIES } from '../types'
 import { url } from '../lib/navigate'
 
 await requireAuth()
@@ -16,13 +17,15 @@ async function loadProducts(search = '', category = '') {
   let query = supabase.from('products').select('*').order('name')
   if (search) query = query.ilike('name', `%${search}%`)
   if (category) query = query.eq('category', category)
-
   const { data, error } = await query
+
   if (error) {
     app.innerHTML = `<p class="text-red-500 text-sm">${error.message}</p>`
     return
   }
   const products = (data ?? []) as Product[]
+
+  const categories = CATEGORIES
 
   app.innerHTML = `
     <div class="flex items-center justify-between mb-6">
@@ -36,8 +39,11 @@ async function loadProducts(search = '', category = '') {
     <div class="flex gap-3 mb-5">
       <input id="search" type="text" placeholder="按名称搜索…" value="${search}"
         class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1" />
-      <input id="category-filter" type="text" placeholder="按分类筛选…" value="${category}"
-        class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48" />
+      <select id="category-filter"
+        class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 bg-white">
+        <option value="">全部分类</option>
+        ${categories.map((c) => `<option value="${c}" ${c === category ? 'selected' : ''}>${c}</option>`).join('')}
+      </select>
     </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -78,10 +84,10 @@ async function loadProducts(search = '', category = '') {
   `
 
   document.getElementById('search')?.addEventListener('input', (e) => {
-    loadProducts((e.target as HTMLInputElement).value, (document.getElementById('category-filter') as HTMLInputElement).value)
+    loadProducts((e.target as HTMLInputElement).value, (document.getElementById('category-filter') as HTMLSelectElement).value)
   })
-  document.getElementById('category-filter')?.addEventListener('input', (e) => {
-    loadProducts((document.getElementById('search') as HTMLInputElement).value, (e.target as HTMLInputElement).value)
+  document.getElementById('category-filter')?.addEventListener('change', (e) => {
+    loadProducts((document.getElementById('search') as HTMLInputElement).value, (e.target as HTMLSelectElement).value)
   })
 }
 

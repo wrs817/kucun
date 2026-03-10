@@ -3,6 +3,7 @@ import { requireAuth } from '../auth'
 import { renderNavbar } from '../components/navbar'
 import { supabase } from '../lib/supabase'
 import type { Product } from '../types'
+import { CATEGORIES } from '../types'
 import { url, navigate } from '../lib/navigate'
 
 await requireAuth()
@@ -38,8 +39,10 @@ if (fetchError || !data) {
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">分类</label>
-          <input id="category" type="text" value="${product.category}"
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <select id="category"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+            ${CATEGORIES.map((c) => `<option value="${c}" ${c === product.category ? 'selected' : ''}>${c}</option>`).join('')}
+          </select>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">积分倍率</label>
@@ -75,7 +78,7 @@ if (fetchError || !data) {
 
     const { error } = await supabase.from('products').update({
       name: (document.getElementById('name') as HTMLInputElement).value.trim(),
-      category: (document.getElementById('category') as HTMLInputElement).value.trim(),
+      category: (document.getElementById('category') as HTMLSelectElement).value,
       reward_multiplier: parseFloat((document.getElementById('reward_multiplier') as HTMLInputElement).value),
     }).eq('id', id!)
 
