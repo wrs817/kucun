@@ -3,9 +3,9 @@ import { supabase } from '../lib/supabase'
 export function renderNavbar(container: HTMLElement, activePage: string): void {
   const links = [
     { href: '/index.html', label: '控制台', icon: '🏠' },
-    { href: '/products.html', label: '产品', icon: '📦' },
-    { href: '/sales.html', label: '销售', icon: '💰' },
-    { href: '/goods-in.html', label: '入库', icon: '📥' },
+    { href: '/pages/products.html', label: '产品', icon: '📦' },
+    { href: '/pages/sales.html', label: '销售', icon: '💰' },
+    { href: '/pages/goods-in.html', label: '入库', icon: '📥' },
   ]
 
   container.innerHTML = `
@@ -79,7 +79,7 @@ export function renderNavbar(container: HTMLElement, activePage: string): void {
 
   const logout = async () => {
     await supabase.auth.signOut()
-    window.location.href = '/login.html'
+    window.location.href = '/pages/login.html'
   }
 
   document.getElementById('logout-btn')?.addEventListener('click', logout)

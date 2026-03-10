@@ -10,7 +10,7 @@ const app = document.getElementById('app')!
 
 app.innerHTML = `
   <div class="mb-6">
-    <a href="/products.html" class="text-sm text-indigo-600 hover:underline">← 返回产品列表</a>
+    <a href="/pages/products.html" class="text-sm text-indigo-600 hover:underline">← 返回产品列表</a>
     <h1 class="text-2xl font-bold text-gray-900 mt-2">新增产品</h1>
   </div>
 
@@ -64,6 +64,6 @@ form.addEventListener('submit', async (e) => {
     errorMsg.textContent = error.message
     errorMsg.classList.remove('hidden')
   } else {
-    window.location.href = '/products.html'
+    window.location.href = '/pages/products.html'
   }
 })

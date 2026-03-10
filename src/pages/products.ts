@@ -26,7 +26,7 @@ async function loadProducts(search = '', category = '') {
   app.innerHTML = `
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold text-gray-900">产品</h1>
-      <a href="/products-new.html"
+      <a href="/pages/products-new.html"
         class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
         + 新增产品
       </a>
@@ -63,7 +63,7 @@ async function loadProducts(search = '', category = '') {
                     <td class="px-4 py-3 ${p.quantity <= 5 ? 'text-red-600 font-semibold' : 'text-gray-700'}">${p.quantity}</td>
                     <td class="px-4 py-3 text-gray-700">${p.reward_multiplier}×</td>
                     <td class="px-4 py-3 text-right">
-                      <a href="/products-edit.html?id=${p.id}"
+                      <a href="/pages/products-edit.html?id=${p.id}"
                         class="text-indigo-600 hover:underline text-xs font-medium">编辑</a>
                     </td>
                   </tr>

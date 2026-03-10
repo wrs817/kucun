@@ -23,7 +23,7 @@ if (error) {
   app.innerHTML = `
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold text-gray-900">入库记录</h1>
-      <a href="/goods-in-new.html"
+      <a href="/pages/goods-in-new.html"
         class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
         + 记录入库
       </a>

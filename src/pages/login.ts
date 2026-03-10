@@ -27,7 +27,7 @@ app.innerHTML = `
       </button>
     </form>
     <p class="text-center text-sm text-gray-500">
-      没有账号？<a href="/register.html" class="text-indigo-600 hover:underline">立即注册</a>
+      没有账号？<a href="/pages/register.html" class="text-indigo-600 hover:underline">立即注册</a>
     </p>
   </div>
 `

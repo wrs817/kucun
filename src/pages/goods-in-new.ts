@@ -14,7 +14,7 @@ const productList = (products ?? []) as Pick<Product, 'id' | 'name'>[]
 
 app.innerHTML = `
   <div class="mb-6">
-    <a href="/goods-in.html" class="text-sm text-indigo-600 hover:underline">← 返回入库列表</a>
+    <a href="/pages/goods-in.html" class="text-sm text-indigo-600 hover:underline">← 返回入库列表</a>
     <h1 class="text-2xl font-bold text-gray-900 mt-2">记录入库</h1>
   </div>
 
@@ -72,6 +72,6 @@ form.addEventListener('submit', async (e) => {
     errorMsg.textContent = error.message
     errorMsg.classList.remove('hidden')
   } else {
-    window.location.href = '/goods-in.html'
+    window.location.href = '/pages/goods-in.html'
   }
 })

@@ -1,23 +1,23 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig({
-  base: '/inventory_management/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/inventory_management/' : '/',
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
       input: {
         main: 'index.html',
-        login: 'login.html',
-        register: 'register.html',
-        products: 'products.html',
-        'products-new': 'products-new.html',
-        'products-edit': 'products-edit.html',
-        sales: 'sales.html',
-        'sales-new': 'sales-new.html',
-        'goods-in': 'goods-in.html',
-        'goods-in-new': 'goods-in-new.html',
+        login: 'pages/login.html',
+        register: 'pages/register.html',
+        products: 'pages/products.html',
+        'products-new': 'pages/products-new.html',
+        'products-edit': 'pages/products-edit.html',
+        sales: 'pages/sales.html',
+        'sales-new': 'pages/sales-new.html',
+        'goods-in': 'pages/goods-in.html',
+        'goods-in-new': 'pages/goods-in-new.html',
       },
     },
   },
-})
+}))

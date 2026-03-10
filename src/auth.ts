@@ -7,7 +7,7 @@ import { supabase } from './lib/supabase'
 export async function requireAuth(): Promise<void> {
   const { data } = await supabase.auth.getSession()
   if (!data.session) {
-    window.location.href = '/login.html'
+    window.location.href = '/pages/login.html'
   }
 }
 
