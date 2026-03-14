@@ -61,11 +61,11 @@ const form = document.getElementById("goods-in-form") as HTMLFormElement;
 const errorMsg = document.getElementById("error-msg")!;
 const productSelect = document.getElementById("product_id") as HTMLSelectElement;
 
-// Wire up scan button
 renderScanButton(document.getElementById("scan-btn-container")!, (barcode) => {
-  const match = productList.find((p) => p.barcode === barcode);
+  const match = productList.find((p) => p.barcode?.trim() === barcode.trim());
   if (match) {
     productSelect.value = match.id;
+    errorMsg.classList.add("hidden");
   } else {
     errorMsg.textContent = `未找到条形码对应的产品：${barcode}`;
     errorMsg.classList.remove("hidden");

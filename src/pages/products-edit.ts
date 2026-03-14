@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabase";
 import type { Product } from "../types";
 import { CATEGORIES } from "../types";
 import { url, navigate } from "../lib/navigate";
+import { renderScanButton } from "../components/barcode-scanner";
 
 await requireAuth();
 renderNavbar(document.getElementById("navbar")!, "产品");
@@ -57,6 +58,7 @@ if (fetchError || !data) {
           <label class="block text-sm font-medium text-gray-700 mb-1">条形码 / 二维码</label>
           <input id="barcode" type="text" value="${product.barcode ?? ""}" placeholder="可选，用于扫码快速选产品"
             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <div id="barcode-scan-btn"></div>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">库存（只读）</label>
@@ -80,6 +82,11 @@ if (fetchError || !data) {
 
   const form = document.getElementById("product-form") as HTMLFormElement;
   const errorMsg = document.getElementById("error-msg")!;
+
+  // Scan button populates the barcode field
+  renderScanButton(document.getElementById("barcode-scan-btn")!, (barcode) => {
+    (document.getElementById("barcode") as HTMLInputElement).value = barcode;
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
